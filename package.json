@@ -1,0 +1,44 @@
+{
+  "name": "tasklane",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "^22.22.2 || ^24.15.0 || >=26"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "setup": "npm run typecheck && npm run db:reset -w @tasklane/api",
+    "dev": "npm run dev -w @tasklane/api",
+    "control-plane": "npm run start -w @tasklane/control-plane",
+    "halt": "node tools/control.mjs halt",
+    "resume": "node tools/control.mjs resume",
+    "suspend": "node tools/control.mjs suspend",
+    "control:status": "node tools/control.mjs status",
+    "hooks:try": "node tools/hooks-try.mjs",
+    "audit:verify": "node tools/audit-verify.mjs",
+    "deploy": "node tools/deploy.mjs",
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^22",
+    "eslint": "^10.12.0",
+    "globals": "^17.13.0",
+    "prettier": "^3.9.9",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.71.1",
+    "vitest": "^5.0.3"
+  },
+  "allowScripts": {
+    "better-sqlite3": false,
+    "esbuild": false,
+    "fsevents": false
+  }
+}

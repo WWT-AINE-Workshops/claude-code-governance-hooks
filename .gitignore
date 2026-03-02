@@ -1,0 +1,11 @@
+node_modules/
+dist/
+apps/api/data/
+*.log
+
+# Claude Code personal overrides
+.claude/settings.local.json
+CLAUDE.local.md
+
+# Local audit log written by .claude/hooks/audit.mjs
+.audit/
