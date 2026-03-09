@@ -1,0 +1,124 @@
+openapi: 3.0.3
+info:
+  title: Tasklane API
+  version: 1.0.0
+  description: A small team task tracker.
+servers:
+  - url: http://localhost:3001
+paths:
+  /api/health:
+    get:
+      summary: Liveness check
+      responses:
+        '200':
+          description: The API is up.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [ok]
+                properties:
+                  ok: { type: boolean }
+  /api/tasks:
+    get:
+      summary: List tasks, newest id last
+      parameters:
+        - { name: status, in: query, schema: { $ref: '#/components/schemas/TaskStatus' } }
+        - { name: page, in: query, schema: { type: integer, minimum: 1, default: 1 } }
+        - {
+            name: pageSize,
+            in: query,
+            schema: { type: integer, minimum: 1, maximum: 50, default: 10 },
+          }
+      responses:
+        '200':
+          description: One page of tasks.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TaskPage' }
+        '400': { $ref: '#/components/responses/Error' }
+    post:
+      summary: Create a task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title]
+              properties:
+                title: { type: string, minLength: 1, maxLength: 200 }
+                assigneeId: { type: integer, nullable: true }
+      responses:
+        '201':
+          description: The new task.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Task' }
+        '400': { $ref: '#/components/responses/Error' }
+  /api/tasks/{id}:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: integer, minimum: 1 } }
+    get:
+      summary: Get one task
+      responses:
+        '200':
+          description: The task.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Task' }
+        '400': { $ref: '#/components/responses/Error' }
+        '404': { $ref: '#/components/responses/Error' }
+    patch:
+      summary: Change a task's status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [status]
+              properties:
+                status: { $ref: '#/components/schemas/TaskStatus' }
+      responses:
+        '200':
+          description: The updated task.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Task' }
+        '400': { $ref: '#/components/responses/Error' }
+        '404': { $ref: '#/components/responses/Error' }
+components:
+  responses:
+    Error:
+      description: The request failed.
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [error]
+            properties:
+              error: { type: string }
+  schemas:
+    TaskStatus:
+      type: string
+      enum: [todo, doing, done]
+    Task:
+      type: object
+      required: [id, title, status, assigneeId, createdAt]
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        status: { $ref: '#/components/schemas/TaskStatus' }
+        assigneeId: { type: integer, nullable: true }
+        createdAt: { type: string, format: date-time }
+    TaskPage:
+      type: object
+      required: [items, total, page, pageSize]
+      properties:
+        items:
+          type: array
+          items: { $ref: '#/components/schemas/Task' }
+        total: { type: integer }
+        page: { type: integer }
+        pageSize: { type: integer }
