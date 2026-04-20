@@ -1,0 +1,23 @@
+{
+  "input": {
+    "session_id": "3f1c9a52-7d4e-4b8a-9c21-5e6f0a1b2c3d",
+    "transcript_path": "/home/sam/.claude/projects/tasklane/3f1c9a52.jsonl",
+    "cwd": "/home/sam/tasklane",
+    "permission_mode": "default",
+    "prompt_id": "p-0002",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/home/sam/tasklane/config/vendor.json"
+    },
+    "tool_use_id": "toolu_01B",
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "/home/sam/tasklane/config/vendor.json",
+        "content": "{\n  \"vendor\": \"Northwind Storage\",\n  \"aws_access_key_id\": \"AKIAIOSFODNN7EXAMPLE\",\n  \"aws_secret_access_key\": \"wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY\"\n}\n"
+      }
+    }
+  },
+  "mustNotContain": ["AKIAIOSFODNN7EXAMPLE", "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"]
+}

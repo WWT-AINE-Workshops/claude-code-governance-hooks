@@ -1,0 +1,16 @@
+{
+  "expect": "block",
+  "input": {
+    "session_id": "3f1c9a52-7d4e-4b8a-9c21-5e6f0a1b2c3d",
+    "transcript_path": "/home/sam/.claude/projects/tasklane/3f1c9a52.jsonl",
+    "cwd": "/home/sam/tasklane",
+    "permission_mode": "default",
+    "prompt_id": "p-0001",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/home/sam/tasklane/.env"
+    },
+    "tool_use_id": "toolu_01A"
+  }
+}

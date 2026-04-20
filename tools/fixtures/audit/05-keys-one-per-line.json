@@ -1,0 +1,22 @@
+{
+  "input": {
+    "session_id": "3f1c9a52-7d4e-4b8a-9c21-5e6f0a1b2c3d",
+    "transcript_path": "/home/sam/.claude/projects/tasklane/3f1c9a52.jsonl",
+    "cwd": "/home/sam/tasklane",
+    "permission_mode": "default",
+    "prompt_id": "p-0007",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "jq -r '.aws_access_key_id, .aws_secret_access_key' config/vendor.json",
+      "description": "Print the vendor keys"
+    },
+    "tool_use_id": "toolu_01F",
+    "tool_response": {
+      "stdout": "AKIAIOSFODNN7EXAMPLE\nwJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+      "stderr": "",
+      "interrupted": false
+    }
+  },
+  "mustNotContain": ["AKIAIOSFODNN7EXAMPLE", "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"]
+}

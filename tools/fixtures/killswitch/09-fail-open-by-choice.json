@@ -1,0 +1,16 @@
+{
+  "controlPlane": "down",
+  "expect": "continue",
+  "input": {
+    "session_id": "3f1c9a52-7d4e-4b8a-9c21-5e6f0a1b2c3d",
+    "transcript_path": "/home/sam/.claude/projects/tasklane/3f1c9a52.jsonl",
+    "cwd": "/home/sam/tasklane",
+    "permission_mode": "default",
+    "prompt_id": "p-0006",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "Add a due date to tasks"
+  },
+  "env": {
+    "KILLSWITCH_FAIL_MODE": "open"
+  }
+}

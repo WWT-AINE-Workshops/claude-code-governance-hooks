@@ -1,0 +1,4 @@
+{
+  "expect": "block",
+  "raw": "{\"tool_name\": \"Bash\", \"tool_input\": {\"command\": \"rm -rf ~/\""
+}

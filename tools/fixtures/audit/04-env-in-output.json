@@ -1,0 +1,22 @@
+{
+  "input": {
+    "session_id": "3f1c9a52-7d4e-4b8a-9c21-5e6f0a1b2c3d",
+    "transcript_path": "/home/sam/.claude/projects/tasklane/3f1c9a52.jsonl",
+    "cwd": "/home/sam/tasklane",
+    "permission_mode": "default",
+    "prompt_id": "p-0005",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "printenv | grep AWS",
+      "description": "Check the AWS settings"
+    },
+    "tool_use_id": "toolu_01E",
+    "tool_response": {
+      "stdout": "AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE\nAWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+      "stderr": "",
+      "interrupted": false
+    }
+  },
+  "mustNotContain": ["AKIAIOSFODNN7EXAMPLE", "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"]
+}

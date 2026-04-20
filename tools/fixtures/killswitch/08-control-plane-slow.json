@@ -1,0 +1,18 @@
+{
+  "controlPlane": "slow",
+  "expect": "halt",
+  "input": {
+    "session_id": "3f1c9a52-7d4e-4b8a-9c21-5e6f0a1b2c3d",
+    "transcript_path": "/home/sam/.claude/projects/tasklane/3f1c9a52.jsonl",
+    "cwd": "/home/sam/tasklane",
+    "permission_mode": "default",
+    "prompt_id": "p-0006",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "npm test"
+    },
+    "tool_use_id": "toolu_01A"
+  },
+  "withinMs": 3500
+}

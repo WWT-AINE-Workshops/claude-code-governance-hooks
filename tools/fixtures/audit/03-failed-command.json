@@ -1,0 +1,20 @@
+{
+  "input": {
+    "session_id": "3f1c9a52-7d4e-4b8a-9c21-5e6f0a1b2c3d",
+    "transcript_path": "/home/sam/.claude/projects/tasklane/3f1c9a52.jsonl",
+    "cwd": "/home/sam/tasklane",
+    "permission_mode": "default",
+    "prompt_id": "p-0004",
+    "hook_event_name": "PostToolUseFailure",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "npm run migrate",
+      "description": "Run the migrations"
+    },
+    "tool_use_id": "toolu_01D",
+    "error": "Exit code 1\nnpm error Missing script: \"migrate\"",
+    "is_interrupt": false,
+    "duration_ms": 812
+  },
+  "mustNotContain": []
+}
