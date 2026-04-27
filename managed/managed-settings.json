@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "deny": ["Read(**/.env)", "Read(**/secrets/**)"]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["/opt/claude-governance/hooks/guard.mjs"],
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
