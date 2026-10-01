@@ -1,13 +1,10 @@
 // PreToolUse guard for Bash and Read. Blocks destructive commands and keeps secrets out of the session.
+// Fails closed: anything unexpected, including input it cannot read, is denied.
 import { readFileSync } from 'node:fs';
-
-const input = JSON.parse(readFileSync(0, 'utf8'));
-const tool = input.tool_name;
-const args = input.tool_input;
 
 const SAFE_DELETE = /^rm\s+-rf\s+(\.\/)?node_modules\/\.cache\/?$/;
 
-const SECRET_PATH = /(^|\/)(\.env(\.[\w-]+)?|secrets\/.*)$/;
+const SECRET_PATH = /(^|\/)(\.env(\.[\w.-]+)?|secrets\/.*)$/;
 
 const BASH_RULES = [
   {
@@ -28,20 +25,30 @@ const BASH_RULES = [
   },
 ];
 
+// Exit 2 is the only exit code that blocks on its own. Claude Code shows stderr to Claude as the reason.
 function deny(reason) {
   console.error(`Blocked by policy: ${reason}`);
-  process.exit(1);
+  process.exit(2);
 }
 
-if (tool === 'Bash') {
-  const command = args.command;
-  for (const rule of BASH_RULES) {
-    if (rule.test(command) && !rule.except?.(command)) deny(rule.reason);
+function check(input) {
+  const tool = input.tool_name;
+  const args = input.tool_input;
+  if (typeof args !== 'object' || args === null) deny(`no tool input for ${tool}`);
+  if (tool === 'Bash') {
+    if (typeof args.command !== 'string') deny('a Bash call with no command');
+    for (const rule of BASH_RULES) {
+      if (rule.test(args.command) && !rule.except?.(args.command)) deny(rule.reason);
+    }
+  }
+  if (tool === 'Read' && SECRET_PATH.test(String(args.file_path))) {
+    deny('Secrets stay out of the session');
   }
 }
 
-if (tool === 'Read' && SECRET_PATH.test(args.file_path)) {
-  deny('Secrets stay out of the session');
+try {
+  check(JSON.parse(readFileSync(0, 'utf8')));
+} catch (err) {
+  deny(`the guard could not check this call (${err.message})`);
 }
-
 process.exit(0);
